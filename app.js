@@ -17,6 +17,10 @@ function products(data) {
   const section = document.createElement("section");
   main.append(section);
   data.forEach((product) => {
+    const border = document.createElement("article");
+    section.append(border);
+    border.classList.add("container");
+
     const image = document.createElement("img");
     image.src = product.image.medium;
     section.append(image);
