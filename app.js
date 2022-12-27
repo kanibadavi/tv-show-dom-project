@@ -11,6 +11,7 @@ async function data() {
 
 data();
 
+
 // put main in document
 
 const navbar = document.createElement("div");
@@ -20,12 +21,34 @@ navbar.classList.add("navbar");
 const form = document.createElement("form");
 navbar.append(form);
 form.setAttribute("action", "");
+form.classList.add("search-bar");
+// console.log(form);
 
-const input = document.createElement("input");
-form.append(input);
-input.setAttribute("type", "text");
-input.setAttribute("placeholder", "search");
-input.setAttribute("name", "q");
+// form.addEventListener("Keyup", (e) => {
+//   const searchString = e.target.value;
+//   const filtered = urlData.filter((GOT) => {
+//     return (
+//       GOT.name.includes(searchString) || GOT.summary.includes(searchString)
+//     );
+//   });
+//   displayEpisodes(filtered);
+// });
+
+// const display = (episodes) =>{
+//   const htmlString = episodes
+//     .map((episode) => {
+//        return
+//       `<li class="episode">
+//       <h2>${episode.name}</h2>
+//       <p>summary: ${episode.summary}</p>
+//       <img src= "${episode.image}"></img>
+//       </li>`;
+//   })
+//   .join('');
+//   list.innerHTML = htmlString;
+// };
+
+
 
 const button = document.createElement("button");
 form.append(button);
@@ -146,8 +169,9 @@ const main = document.createElement("main");
 document.body.append(main);
 main.classList.add("main");
 
+let users = [];
 function products(data) {
-  data.forEach((product) => {
+  users = data.map((product) => {
     //put section in main
     const section = document.createElement("section");
     main.append(section);
@@ -179,6 +203,9 @@ function products(data) {
     border.append(paragraph);
     paragraph.classList.add("para");
 
+    return { name: users.name, summary: users.summary };
+    // console.log(users);
+
     //   const shortening = document.createElement("p");
     //   shortening.innerHTML = summary.substring(0, 120);
     //   shortening.setAttribute("data-id", index);
@@ -191,3 +218,18 @@ function products(data) {
     //   })
   });
 }
+const input = document.createElement("input");
+form.append(input);
+input.setAttribute("type", "search");
+input.setAttribute("placeholder", "search");
+input.setAttribute("name", "q");
+
+console.log(users);
+input.addEventListener("input", (e) => {
+  const value = e.target.value;
+  users.forEach((user) => {
+    const isVisible = user.name.includes(value) || user.summary.includes(value);
+    user.element.classList.toggle("hide", !isVisible);
+  });
+  // console.log(value);
+});
