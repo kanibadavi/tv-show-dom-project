@@ -1,9 +1,10 @@
+let users = [];
 const url = "https://api.tvmaze.com/shows/82/episodes";
 
 async function data() {
   const response = await fetch(url);
   const urlData = await response.json();
-
+  users = urlData
   console.log(urlData);
 
   products(urlData);
@@ -169,7 +170,7 @@ const main = document.createElement("main");
 document.body.append(main);
 main.classList.add("main");
 
-let users = [];
+
 function products(data) {
   users = data.map((product) => {
     //put section in main
@@ -224,7 +225,7 @@ input.setAttribute("type", "search");
 input.setAttribute("placeholder", "search");
 input.setAttribute("name", "q");
 
-console.log(users);
+
 input.addEventListener("input", (e) => {
   const value = e.target.value;
   users.forEach((user) => {
@@ -233,3 +234,5 @@ input.addEventListener("input", (e) => {
   });
   // console.log(value);
 });
+
+console.log(users);
