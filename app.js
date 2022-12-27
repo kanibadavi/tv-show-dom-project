@@ -17,6 +17,28 @@ const navbar = document.createElement("div");
 document.body.append(navbar);
 navbar.classList.add("navbar");
 
+const form = document.createElement("form");
+navbar.append(form);
+form.setAttribute("action", "");
+
+const input = document.createElement("input");
+form.append(input);
+input.setAttribute("type", "text");
+input.setAttribute("placeholder", "search");
+input.setAttribute("name", "q");
+
+const button = document.createElement("button");
+form.append(button);
+button.setAttribute("type", "submit");
+
+const image3 = document.createElement("img");
+button.append(image3);
+image3.setAttribute(
+  "src",
+  "https://cdn-icons-png.flaticon.com/512/3917/3917754.png"
+);
+image3.setAttribute("alt", "search icon");
+
 const image2 = document.createElement("img");
 navbar.append(image2);
 image2.setAttribute(
@@ -49,7 +71,7 @@ anchor3.textContent = "ABOUT";
 
 const section2 = document.createElement("section");
 document.body.append(section2);
-section2.classList.add("row");
+section2.classList.add("row", "hero");
 
 const section3 = document.createElement("div");
 section2.append(section3);
@@ -70,11 +92,11 @@ section4.classList.add("col");
 
 const cards = document.createElement("div");
 section4.append(cards);
-cards.classList.add("card" , "zeshtalu");
+cards.classList.add("zeshtalu");
 
 const div1 = document.createElement("div");
 cards.append(div1);
-div1.classList.add("div1")
+div1.classList.add("div1");
 const heading5 = document.createElement("h5");
 div1.append(heading5);
 heading5.classList.add("card1");
@@ -86,7 +108,7 @@ paragraph2.textContent =
 
 const div2 = document.createElement("div");
 cards.append(div2);
-div2.classList.add("div2")
+div2.classList.add("div2");
 const heading6 = document.createElement("h5");
 div2.append(heading6);
 heading6.classList.add("card2");
@@ -98,7 +120,7 @@ paragraph3.textContent =
 
 const div3 = document.createElement("div");
 cards.append(div3);
-div3.classList.add("div3")
+div3.classList.add("div3");
 const heading7 = document.createElement("h5");
 div3.append(heading7);
 heading7.classList.add("card3");
@@ -110,7 +132,7 @@ paragraph4.textContent =
 
 const div4 = document.createElement("div");
 cards.append(div4);
-div4.classList.add("div4")
+div4.classList.add("div4");
 const heading8 = document.createElement("h5");
 div4.append(heading8);
 heading8.classList.add("card4");
