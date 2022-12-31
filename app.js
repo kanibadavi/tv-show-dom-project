@@ -1,68 +1,29 @@
+//get data////////////////////////////////////////
 let users = [];
 const url = "https://api.tvmaze.com/shows/82/episodes";
 
 async function data() {
   const response = await fetch(url);
   const urlData = await response.json();
-  users = urlData
+  users = urlData;
   console.log(urlData);
-
   products(urlData);
 }
-
 data();
+///////////////////////////////////////////////////
 
-
-// put main in document
-
+//add navbar to body
 const navbar = document.createElement("div");
 document.body.append(navbar);
 navbar.classList.add("navbar");
 
+//add form to navbar
 const form = document.createElement("form");
 navbar.append(form);
 form.setAttribute("action", "");
 form.classList.add("search-bar");
-// console.log(form);
 
-// form.addEventListener("Keyup", (e) => {
-//   const searchString = e.target.value;
-//   const filtered = urlData.filter((GOT) => {
-//     return (
-//       GOT.name.includes(searchString) || GOT.summary.includes(searchString)
-//     );
-//   });
-//   displayEpisodes(filtered);
-// });
-
-// const display = (episodes) =>{
-//   const htmlString = episodes
-//     .map((episode) => {
-//        return
-//       `<li class="episode">
-//       <h2>${episode.name}</h2>
-//       <p>summary: ${episode.summary}</p>
-//       <img src= "${episode.image}"></img>
-//       </li>`;
-//   })
-//   .join('');
-//   list.innerHTML = htmlString;
-// };
-
-
-
-const button = document.createElement("button");
-form.append(button);
-button.setAttribute("type", "submit");
-
-const image3 = document.createElement("img");
-button.append(image3);
-image3.setAttribute(
-  "src",
-  "https://cdn-icons-png.flaticon.com/512/3917/3917754.png"
-);
-image3.setAttribute("alt", "search icon");
-
+//add logo to navbar
 const image2 = document.createElement("img");
 navbar.append(image2);
 image2.setAttribute(
@@ -71,15 +32,19 @@ image2.setAttribute(
 );
 image2.classList.add("logo");
 
+//add nav to navbar
 const nav = document.createElement("nav");
 navbar.append(nav);
 
+//add unordered list to nav
 const ul = document.createElement("ul");
 nav.append(ul);
 
+//add list to unordered list
 const li = document.createElement("li");
 ul.append(li);
 
+//add anchors to list
 const anchor = document.createElement("a");
 li.append(anchor);
 anchor.setAttribute("href", "");
@@ -93,14 +58,44 @@ li.append(anchor3);
 anchor3.setAttribute("href", "");
 anchor3.textContent = "ABOUT";
 
+//add input to form
+const input = document.createElement("input");
+form.append(input);
+input.setAttribute("type", "text");
+input.setAttribute("placeholder", "Search Here... ");
+input.setAttribute("name", "q");
+input.addEventListener("input", users);
+
+//add button to form
+const button = document.createElement("button");
+form.append(button);
+button.setAttribute("type", "submit");
+
+//add search icon to button
+const image3 = document.createElement("img");
+button.append(image3);
+image3.setAttribute(
+  "src",
+  "https://cdn-icons-png.flaticon.com/512/3917/3917754.png"
+);
+image3.setAttribute("alt", "search icon");
+
+//add a section to body
 const section2 = document.createElement("section");
 document.body.append(section2);
 section2.classList.add("row", "hero");
 
+//add main to body
+const main = document.createElement("main");
+document.body.append(main);
+main.classList.add("main");
+
+//add a section into our section
 const section3 = document.createElement("div");
 section2.append(section3);
 section3.classList.add("col");
 
+//add our starting heading and paragraph to section
 const heading1 = document.createElement("h1");
 heading1.textContent = "TVmaze";
 section3.append(heading1);
@@ -110,14 +105,17 @@ paragraph1.textContent = "Choose one and lets watch it!";
 section3.append(paragraph1);
 paragraph1.classList.add("paragraph");
 
+//add another section
 const section4 = document.createElement("div");
 section2.append(section4);
 section4.classList.add("col");
 
+//add cards in the header
 const cards = document.createElement("div");
 section4.append(cards);
 cards.classList.add("zeshtalu");
 
+//four starting seasons
 const div1 = document.createElement("div");
 cards.append(div1);
 div1.classList.add("div1");
@@ -165,14 +163,10 @@ const paragraph5 = document.createElement("p");
 div4.append(paragraph5);
 paragraph5.textContent =
   "The fourth season of the fantasy drama television series Game of Thrones premiered in the United States on HBO on April 6, 2014, and concluded on June 15, 2014.";
-
-const main = document.createElement("main");
-document.body.append(main);
-main.classList.add("main");
-
-
+//////////////////////////////////////////////////////////
+//make cards for each episode
 function products(data) {
-  users = data.map((product) => {
+  let datas = users.forEach((user) => {
     //put section in main
     const section = document.createElement("section");
     main.append(section);
@@ -182,57 +176,47 @@ function products(data) {
     border.classList.add("container");
     //put image in border
     const image = document.createElement("img");
-    image.src = product.image.medium;
+    image.src = user.image.medium;
     border.append(image);
-
-    // const div = document.createElement("div");
-    // div.append(border);
-    // border.classList.add("div");
-
+    //put heading in border
     const heading = document.createElement("h1");
-    heading.textContent = `${product.name}`;
+    heading.textContent = `${user.name}`;
     border.append(heading);
     heading.classList.add("head");
-
+    //put button in border
     const button = document.createElement("button");
-    button.textContent = `S0${product.season}E0${product.number}`;
+    button.textContent = `S0${user.season}E0${user.number}`;
     border.append(button);
     button.classList.add("button");
-
+    //put p in border
     const paragraph = document.createElement("p");
-    paragraph.innerHTML = product.summary;
+    paragraph.innerHTML = user.summary;
     border.append(paragraph);
     paragraph.classList.add("para");
-
-    return { name: users.name, summary: users.summary };
-    // console.log(users);
-
-    //   const shortening = document.createElement("p");
-    //   shortening.innerHTML = summary.substring(0, 120);
-    //   shortening.setAttribute("data-id", index);
-    //   shortening.addEventListener("click", () =>{
-    //     if (shortening.textContent.length < 119){
-    //       shortening.innerHTML = summary;
-    //     } else {
-    //       shortening.innerHTML = summary.substring(0 , 120)
-    //     }
-    //   })
   });
 }
-const input = document.createElement("input");
-form.append(input);
-input.setAttribute("type", "search");
-input.setAttribute("placeholder", "search");
-input.setAttribute("name", "q");
-
-
-input.addEventListener("input", (e) => {
-  const value = e.target.value;
-  users.forEach((user) => {
-    const isVisible = user.name.includes(value) || user.summary.includes(value);
-    user.element.classList.toggle("hide", !isVisible);
-  });
-  // console.log(value);
-});
-
-console.log(users);
+products()
+////////////////////////////////////////////////////////
+// form.addEventListener("Keyup", (e) => {
+//     const searchString = e.target.value;
+//     const filtered = urlData.filter((GOT) => {
+//       return (
+//         GOT.name.includes(searchString) || GOT.summary.includes(searchString)
+//       );
+//     });
+//     displayEpisodes(filtered);
+//   });
+  
+//   const display = (episodes) =>{
+//     const htmlString = episodes
+//       .map((episode) => {
+//          return
+//         `<li class="episode">
+//         <h2>${episode.name}</h2>
+//         <p>summary: ${episode.summary}</p>
+//         <img src= "${episode.image}"></img>
+//         </li>`;
+//     })
+//     .join('');
+//     list.innerHTML = htmlString;
+//   };
