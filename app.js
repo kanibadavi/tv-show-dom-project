@@ -1,15 +1,95 @@
 //get data////////////////////////////////////////
-let users = [];
+
 const url = "https://api.tvmaze.com/shows/82/episodes";
 
-async function data() {
-  const response = await fetch(url);
-  const urlData = await response.json();
-  users = urlData;
-  console.log(urlData);
-  products(urlData);
+
+
+
+
+
+
+//make cards for each episode
+function makeCards(data) {
+  const divEl = document.createElement("div");
+  main.append(divEl);
+  let datas = users.forEach((user) => {
+    //put section in main
+    const section = document.createElement("section");
+    section.classList.add("card");
+    section.setAttribute("data-name",user.name)
+    section.setAttribute("data-desc",user.summary)
+    divEl.append(section);
+    //put border in section
+    const border = document.createElement("article");
+    section.append(border);
+    border.classList.add("container");
+    //put image in border
+    const image = document.createElement("img");
+    image.src = user.image.medium;
+    border.append(image);
+    //put heading in border
+    const heading = document.createElement("h1");
+    heading.textContent = `${user.name}`;
+    border.append(heading);
+    heading.classList.add("head");
+    //put button in border
+    const button = document.createElement("button");
+    button.textContent = `S0${user.season}E0${user.number}`;
+    border.append(button);
+    button.classList.add("button");
+    //put p in border
+    const paragraph = document.createElement("p");
+    paragraph.innerHTML = user.summary;
+    border.append(paragraph);
+    paragraph.classList.add("para");
+  });
 }
-data();
+
+
+
+
+
+
+
+
+
+async function data(url) {
+  try{
+    const response = await fetch(url);
+    const users = await response.json();
+
+    console.log(users);
+
+    makeCards(users)
+
+
+
+    
+    // input.addEventListener("keyup",(e)=>{
+    //   const searchTerm = e.target.value.toLowerCase()
+    //   let myArr = []
+    //   users.map(movie => {
+    //     if(Object.values(movie).includes(searchTerm)){
+    //       myArr.push(movie)
+    //     }
+    //     makeCards(myArr)
+    //     })
+    //   })
+    
+
+
+
+
+
+
+
+
+
+
+  } catch(err){
+    console.log(err);
+  }}
+data(url);
 ///////////////////////////////////////////////////
 
 //add navbar to body
@@ -63,8 +143,16 @@ const input = document.createElement("input");
 form.append(input);
 input.setAttribute("type", "text");
 input.setAttribute("placeholder", "Search Here... ");
-input.setAttribute("name", "q");
-input.addEventListener("input", users);
+// input.setAttribute("onkeyup", "myFunction()");
+input.addEventListener("input", (e)=>{
+  const elements = document.querySelectorAll(".card")
+  const search = e.target.value
+  for(let el of elements){
+    // if(el.getAttribute("data-name").toLowerCase().includes(search.toLowerCase()))
+  }
+});
+input.classList.add("search-item");
+
 
 //add button to form
 const button = document.createElement("button");
@@ -164,59 +252,5 @@ div4.append(paragraph5);
 paragraph5.textContent =
   "The fourth season of the fantasy drama television series Game of Thrones premiered in the United States on HBO on April 6, 2014, and concluded on June 15, 2014.";
 //////////////////////////////////////////////////////////
-//make cards for each episode
-function products(data) {
-  let datas = users.forEach((user) => {
-    //put section in main
-    const section = document.createElement("section");
-    main.append(section);
-    //put border in section
-    const border = document.createElement("article");
-    section.append(border);
-    border.classList.add("container");
-    //put image in border
-    const image = document.createElement("img");
-    image.src = user.image.medium;
-    border.append(image);
-    //put heading in border
-    const heading = document.createElement("h1");
-    heading.textContent = `${user.name}`;
-    border.append(heading);
-    heading.classList.add("head");
-    //put button in border
-    const button = document.createElement("button");
-    button.textContent = `S0${user.season}E0${user.number}`;
-    border.append(button);
-    button.classList.add("button");
-    //put p in border
-    const paragraph = document.createElement("p");
-    paragraph.innerHTML = user.summary;
-    border.append(paragraph);
-    paragraph.classList.add("para");
-  });
-}
-products()
-////////////////////////////////////////////////////////
-// form.addEventListener("Keyup", (e) => {
-//     const searchString = e.target.value;
-//     const filtered = urlData.filter((GOT) => {
-//       return (
-//         GOT.name.includes(searchString) || GOT.summary.includes(searchString)
-//       );
-//     });
-//     displayEpisodes(filtered);
-//   });
-  
-//   const display = (episodes) =>{
-//     const htmlString = episodes
-//       .map((episode) => {
-//          return
-//         `<li class="episode">
-//         <h2>${episode.name}</h2>
-//         <p>summary: ${episode.summary}</p>
-//         <img src= "${episode.image}"></img>
-//         </li>`;
-//     })
-//     .join('');
-//     list.innerHTML = htmlString;
-//   };
+
+/////////////////////////////////////////////
