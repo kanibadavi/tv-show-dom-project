@@ -11,11 +11,12 @@ const url = "https://api.tvmaze.com/shows/82/episodes";
 //make cards for each episode
 function makeCards(data) {
   const divEl = document.createElement("div");
-  main.append(divEl);
-  let datas = users.forEach((user) => {
+  divEl.classList.add("divContainer")
+  document.querySelector(".main").append(divEl);
+    data.forEach((user) => {
     //put section in main
     const section = document.createElement("section");
-    section.classList.add("card");
+    section.classList.add("div-card");
     section.setAttribute("data-name",user.name)
     section.setAttribute("data-desc",user.summary)
     divEl.append(section);
@@ -42,6 +43,11 @@ function makeCards(data) {
     paragraph.innerHTML = user.summary;
     border.append(paragraph);
     paragraph.classList.add("para");
+
+    const option = document.createElement("option");
+    option.value = user.name;
+    option.textContent = `S0${user.season}E0${user.number} - ${user.name}`;
+    document.querySelector(".select").append(option);
   });
 }
 
@@ -59,7 +65,7 @@ async function data(url) {
     const users = await response.json();
 
     console.log(users);
-
+    renderBase()
     makeCards(users)
 
 
@@ -92,10 +98,13 @@ async function data(url) {
 data(url);
 ///////////////////////////////////////////////////
 
-//add navbar to body
+function renderBase () {
+  //add navbar to body
 const navbar = document.createElement("div");
 document.body.append(navbar);
 navbar.classList.add("navbar");
+
+
 
 //add form to navbar
 const form = document.createElement("form");
@@ -145,14 +154,45 @@ input.setAttribute("type", "text");
 input.setAttribute("placeholder", "Search Here... ");
 // input.setAttribute("onkeyup", "myFunction()");
 input.addEventListener("input", (e)=>{
-  const elements = document.querySelectorAll(".card")
+ 
+  const elements = document.querySelectorAll(".div-card")
+  console.log(elements);
   const search = e.target.value
+  console.log(search);
   for(let el of elements){
-    // if(el.getAttribute("data-name").toLowerCase().includes(search.toLowerCase()))
+    // console.log(el);
+    if(el.getAttribute("data-name").toLowerCase().includes(search.toLowerCase()) || el.getAttribute("data-desc").toLowerCase().includes(search.toLowerCase())){
+      el.style.display = "inline-block"
+    }else {
+      el.style.display = "none"
+    }
   }
 });
 input.classList.add("search-item");
 
+const select = document.createElement("select");
+select.classList.add("select");
+navbar.append(select);
+const option = document.createElement("option");
+option.value = "all"
+select.append(option);
+option.textContent= "all episodes"
+select.addEventListener("change" , (e) => {
+  const elements = document.querySelectorAll(".div-card")
+  console.log(elements);
+  const search = e.target.value
+  console.log(search);
+  for(let el of elements){
+    // console.log(el);
+    if(search === "all"){
+      el.style.display = "inline-block"
+    } else if(el.getAttribute("data-name").toLowerCase().includes(search.toLowerCase()) || el.getAttribute("data-desc").toLowerCase().includes(search.toLowerCase())){
+      el.style.display = "inline-block"
+    }else {
+      el.style.display = "none"
+    }
+  }
+})
 
 //add button to form
 const button = document.createElement("button");
@@ -254,3 +294,5 @@ paragraph5.textContent =
 //////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////
+
+}

@@ -183,7 +183,14 @@ h5 {
   box-sizing: border-box;
 }
 
-.main {
+/* .main {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: grey;
+} */
+
+.divContainer{
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
